@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¿Quieres jugar a un juego?</title>
+    <style>
+      /* Full-page background image */
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        background: url("C:/Users/nico-/green_lemon/saw_web/static/images/saw.jpg")
+          no-repeat center center fixed;
+        background-size: cover;
+        color: black; /* Default text color */
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: black;
+        text-shadow: 2px 2px 5px red; /* Optional: adds scary effect */
+      }
+
+      .countdown {
+        font-size: 4rem;
+        margin-top: 20px;
+        color: #b30000; /* Blood red */
+        text-shadow: 2px 2px 4px black; /* Optional: makes it pop */
+      }
+
+      .message {
+        font-size: 2rem;
+        margin-top: 20px;
+        color: black;
+        text-shadow: 2px 2px 5px red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vuoi giocare a un gioco?</h1>
+    <div class="countdown" id="countdown"></div>
+    <div class="message">Tic... Tac...</div>
+
+    <script>
+      // Establecer la fecha y hora objetivo (mañana a las 14:00 hora de España)
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + 1);
+      targetDate.setHours(14, 0, 0, 0);
+
+      // Función para actualizar la cuenta atrás
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+          document.getElementById("countdown").innerHTML = "¡Es hora de jugar!";
+          document.querySelector(".message").innerHTML =
+            "¡Bienvenido al juego!";
+          clearInterval(countdownInterval);
+        } else {
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          document.getElementById(
+            "countdown"
+          ).innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        }
+      }
+
+      // Actualizar la cuenta atrás cada segundo
+      const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
